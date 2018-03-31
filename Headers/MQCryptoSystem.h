@@ -31,7 +31,7 @@ namespace Cryptosystem {
         MQCryptoSystem(std::string galoisField, PublicKey equations, std::string order, int seed, int variablesCount, int equationsCount);
         ~MQCryptoSystem();
 
-        virtual void Save(std::string pathname) const;
+        virtual void Save(std::string pathname = "mq") const;
         virtual void Import(std::string pathname);
         virtual void Print() const;
     };

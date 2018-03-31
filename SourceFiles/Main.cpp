@@ -14,13 +14,14 @@ int main(int argc, char** argv)
 
     if (argc == 2)
     {
-	std::string input(argv[1]);
+	    std::string input(argv[1]);
 
-	if (input == "help")
-	{
-	    std::cout << "Usage: ./Name [path to file] [modifier name] [modifier parameter] [(optional) path to save the file to (default = \"mq\")]\n";
-	    return 1;
-	}
+	    if (input == "help")
+	    {
+	        std::cout << "Usage: ./Name [path to file] [modifier name] [modifier parameter] [(optional) path to save the file to (default = \"mq\")]\n";
+            std::cout << "or ./Name random [number of polynomials] [number of variables] [(optional) path to save the file to (default = \"mq\")] to generate an MQ cryptosystem with random equations\n";
+            return 0;
+	    }
     }
 
     if (argc < 4 || argc > 5)
@@ -29,16 +30,56 @@ int main(int argc, char** argv)
         return 1;
     }
 
-	
+    std::vector<std::string> strings;
+    for(int i = 0; i < argc; i++) 
+    {
+	    strings.push_back(argv[i]);
+    }
+
+    if (strings[0] == "random")
+    {
+        FEI::Cryptosystem::MQCryptoSystem mq(std::stoi(strings[2]), std::stoi(strings[3]));
+        if (argc == 5)
+        {
+            mq.Save(strings[4]);
+        }
+        else
+        {
+            mq.Save();
+        }
+        return 0;
+    }
+
+    FEI::Cryptosystem::MQCryptoSystem mq;
+    mq.Import(strings[1]);
+    
+    if (strings[2] == "plus")
+    {
+        std::shared_ptr<FEI::Cryptosystem::PlusModifier> modifier = std::make_shared<FEI::Cryptosystem::PlusModifier>(stoi(strings[3]));
+    } 
+    if (strings[2] == "minus")
+    {
+        std::shared_ptr<FEI::Cryptosystem::MinusModifier> modifier = std::make_shared<FEI::Cryptosystem::MinusModifier>(stoi(strings[3]));
+    } 
+    if (strings[2] == "xor")
+    {
+        std::shared_ptr<FEI::Cryptosystem::XorModifier> modifier = std::make_shared<FEI::Cryptosystem::XorModifier>(stoi(strings[3]));
+    }
+
+    if (argc == 5)
+    {
+        mq.Save(strings[4]);
+    }
+    else
+    {
+        mq.Save();
+    }
 
 
-std::vector<std::string> strings;
-for(int i = 0; i < argc; i++) {
-	strings.push_back(argv[i]);
-}
 
-for(auto s : strings)
-std::cout << s << "\n";
+    /*
+    for(auto s : strings)
+        std::cout << s << "\n"; */
 
 /*
     std::string pathToFile(argv[1]);

@@ -2,7 +2,7 @@
 
 namespace std {
 
-    vector<int> operator +(vector<int> rhs, vector<int> lhs)
+    vector<int> operator+(vector<int> rhs, vector<int> lhs)
     {
         vector<int> smaller;
         vector<int> bigger;
@@ -60,18 +60,18 @@ namespace Utilities {
 
     std::vector<int> UtilityModule::RandomQuadraticTermGenerator(std::map<std::string, std::vector<int>> linear_combinations)
     {
-        std::vector<int> quadratic_term;
+        std::vector<int> quadraticTerm;
 
         for (auto it = linear_combinations.begin(); it != linear_combinations.end(); it++)
         {
             int condition = RandomIntGenerator(1);
             if (condition != 0)
             {
-                quadratic_term = quadratic_term + it->second;
+                quadraticTerm = quadraticTerm + it->second;
             }
         }
 
-        return quadratic_term;
+        return quadraticTerm;
     }
 
 
@@ -97,12 +97,12 @@ namespace Utilities {
 
     std::vector<int> UtilityModule::GetLinearCombination(std::vector<int> z1, std::vector<int> z2)
     {
-        std::vector<int> linear_combination;
-        const size_t quadratic_variables = ((z1.size() - 1) * (z2.size())) / 2;
+        std::vector<int> linearCombination;
+        const size_t quadraticVariables = ((z1.size() - 1) * (z2.size())) / 2;
 
-        for (size_t i = 0; i < quadratic_variables + z1.size(); i++) // set the combination variables to 0 by default
+        for (size_t i = 0; i < quadraticVariables + z1.size(); i++) // set the combination variables to 0 by default
         {
-            linear_combination.push_back(0);
+            linearCombination.push_back(0);
         }
 
         //quadratic variables
@@ -123,15 +123,15 @@ namespace Utilities {
 
                         if (diff == 0)
                         {
-                            linear_combination[LINEAR_SUM(i + 1) - 1] = (linear_combination[LINEAR_SUM(i + 1) - 1] + 1) % 2;
+                            linearCombination[LINEAR_SUM(i + 1) - 1] = (linearCombination[LINEAR_SUM(i + 1) - 1] + 1) % 2;
                         }
                         if (diff < 0)
                         {
-                            linear_combination[LINEAR_SUM(i + 1) - 1 + diff] = (linear_combination[LINEAR_SUM(i + 1) - 1 + diff] + 1) % 2;
+                            linearCombination[LINEAR_SUM(i + 1) - 1 + diff] = (linearCombination[LINEAR_SUM(i + 1) - 1 + diff] + 1) % 2;
                         }
                         if (diff > 0)
                         {
-                            linear_combination[LINEAR_SUM(i + 1) - 1 + LINEAR_SUM(i, j) - i] = (linear_combination[LINEAR_SUM(i + 1) - 1 + LINEAR_SUM(i, j) - i] + 1) % 2;
+                            linearCombination[LINEAR_SUM(i + 1) - 1 + LINEAR_SUM(i, j) - i] = (linearCombination[LINEAR_SUM(i + 1) - 1 + LINEAR_SUM(i, j) - i] + 1) % 2;
                         }
                     }
                 }
@@ -145,7 +145,7 @@ namespace Utilities {
             {
                 if (z2[i] == 1)
                 {
-                    linear_combination[linear_combination.size() - z2.size() + i] = (linear_combination[linear_combination.size() - z2.size() + i] + 1) % 2;
+                    linearCombination[linearCombination.size() - z2.size() + i] = (linearCombination[linearCombination.size() - z2.size() + i] + 1) % 2;
                 }
             }
         }
@@ -156,12 +156,12 @@ namespace Utilities {
             {
                 if (z1[i] == 1)
                 {
-                    linear_combination[linear_combination.size() - z1.size() + i] = (linear_combination[linear_combination.size() - z1.size() + i] + 1) % 2;
+                    linearCombination[linearCombination.size() - z1.size() + i] = (linearCombination[linearCombination.size() - z1.size() + i] + 1) % 2;
                 }
             }
         }
 
-        return linear_combination;
+        return linearCombination;
     }
         
 } //!Utilities

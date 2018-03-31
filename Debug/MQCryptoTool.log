@@ -1,4 +1,15 @@
-﻿  MQCryptoSystem.cpp
+﻿  Main.cpp
+  Generating Code...
+  Compiling...
+  XorModifier.cpp
+d:\pt projects\mqcryptotool\mqcryptotool\sourcefiles\xormodifier.cpp(25): warning C4018: '<': signed/unsigned mismatch
+d:\pt projects\mqcryptotool\mqcryptotool\sourcefiles\xormodifier.cpp(59): warning C4018: '<': signed/unsigned mismatch
+  PlusModifier.cpp
+d:\pt projects\mqcryptotool\mqcryptotool\sourcefiles\plusmodifier.cpp(24): warning C4018: '<': signed/unsigned mismatch
+  MinusModifier.cpp
+d:\pt projects\mqcryptotool\mqcryptotool\sourcefiles\minusmodifier.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  MQCryptoSystem.cpp
 d:\pt projects\mqcryptotool\mqcryptotool\sourcefiles\mqcryptosystem.cpp(30): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   MQCryptoTool.vcxproj -> D:\pt projects\MQCryptoTool\Debug\MQCryptoTool.exe
   MQCryptoTool.vcxproj -> D:\pt projects\MQCryptoTool\Debug\MQCryptoTool.pdb (Full PDB)

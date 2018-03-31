@@ -6,24 +6,8 @@
 #include <iostream>
 #include <string>
 
-int main(/*int argc, char** argv*/)
+int main(int argc, char** argv)
 {
-    //FEI::Cryptosystem::MQCryptoSystem mq(30,2);
-    
-    //usage - cesta k suboru, modifikator, parameter, (optional)cesta k suboru na ukladanie
-
-    int argc = 4;
-    
-    std::vector<std::string> argv;
-
-    argv.push_back("");
-
-    argv.push_back("random");
-
-    argv.push_back("5");
-
-    argv.push_back("5");
-
     if (argc == 2)
     {
 	    std::string input(argv[1]);
@@ -68,14 +52,17 @@ int main(/*int argc, char** argv*/)
     if (strings[2] == "plus")
     {
         std::shared_ptr<FEI::Cryptosystem::PlusModifier> modifier = std::make_shared<FEI::Cryptosystem::PlusModifier>(stoi(strings[3]));
+        modifier->Modify(mq);
     } 
     if (strings[2] == "minus")
     {
         std::shared_ptr<FEI::Cryptosystem::MinusModifier> modifier = std::make_shared<FEI::Cryptosystem::MinusModifier>(stoi(strings[3]));
+        modifier->Modify(mq);
     } 
     if (strings[2] == "xor")
     {
         std::shared_ptr<FEI::Cryptosystem::XorModifier> modifier = std::make_shared<FEI::Cryptosystem::XorModifier>(stoi(strings[3]));
+        modifier->Modify(mq);
     }
 
     if (argc == 5)

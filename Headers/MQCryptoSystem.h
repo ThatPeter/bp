@@ -10,7 +10,7 @@ namespace Cryptosystem {
 
     class IModifier;
 
-    typedef std::vector<std::vector<int>> PublicKey;
+    typedef std::vector<std::vector<int> > PublicKey;
 
     struct MQCryptoSystem
     {
@@ -18,7 +18,7 @@ namespace Cryptosystem {
         PublicKey m_equations;
         int m_seed;
         std::string m_order;
-        std::list<std::shared_ptr<IModifier>> m_modifiers;
+        std::list<std::shared_ptr<IModifier> > m_modifiers;
         int m_variablesCount;
         int m_equationsCount;
 

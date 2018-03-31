@@ -6,11 +6,23 @@
 #include <iostream>
 #include <string>
 
-int main(int argc, char** argv)
+int main(/*int argc, char** argv*/)
 {
     //FEI::Cryptosystem::MQCryptoSystem mq(30,2);
     
     //usage - cesta k suboru, modifikator, parameter, (optional)cesta k suboru na ukladanie
+
+    int argc = 4;
+    
+    std::vector<std::string> argv;
+
+    argv.push_back("");
+
+    argv.push_back("random");
+
+    argv.push_back("5");
+
+    argv.push_back("5");
 
     if (argc == 2)
     {
@@ -36,7 +48,7 @@ int main(int argc, char** argv)
 	    strings.push_back(argv[i]);
     }
 
-    if (strings[0] == "random")
+    if (strings[1] == "random")
     {
         FEI::Cryptosystem::MQCryptoSystem mq(std::stoi(strings[2]), std::stoi(strings[3]));
         if (argc == 5)

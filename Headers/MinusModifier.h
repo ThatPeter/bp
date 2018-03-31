@@ -5,7 +5,7 @@
 namespace FEI {
 namespace Cryptosystem {
 
-    class MinusModifier : public IModifier, std::enable_shared_from_this<MinusModifier>
+    class MinusModifier : public IModifier
     {
     private:
         int m_toRemoveCount;
@@ -14,7 +14,6 @@ namespace Cryptosystem {
         ~MinusModifier();
         virtual std::string GetName() const override;
         virtual void Modify(MQCryptoSystem& mq) override;
-        virtual std::shared_ptr<MinusModifier> GetSharedPtr();
     };
 
 } //!Cryptosystem

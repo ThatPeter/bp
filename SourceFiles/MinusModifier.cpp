@@ -36,10 +36,5 @@ namespace Cryptosystem {
         mq.m_equationsCount -= 3;
     }
 
-    std::shared_ptr<MinusModifier> MinusModifier::GetSharedPtr()
-    {
-        return shared_from_this();
-    }
-
 } //!Cryptosystem
 } //!FEI

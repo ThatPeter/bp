@@ -56,10 +56,5 @@ namespace Cryptosystem {
         }
     }
 
-    std::shared_ptr<PlusModifier> PlusModifier::GetSharedPtr()
-    {
-        return shared_from_this();
-    }
-    
 } //!Cryptosystem
 } //!FEI

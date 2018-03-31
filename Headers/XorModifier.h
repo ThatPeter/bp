@@ -5,7 +5,7 @@
 namespace FEI {
 namespace Cryptosystem {
 
-    class XorModifier : public IModifier, std::enable_shared_from_this<XorModifier>
+    class XorModifier : public IModifier
     {
     private:
         int m_linearEquationsCount;
@@ -14,7 +14,6 @@ namespace Cryptosystem {
         ~XorModifier();
         virtual std::string GetName() const override;
         virtual void Modify(MQCryptoSystem& mq) override;
-        virtual std::shared_ptr<XorModifier> GetSharedPtr();
     };
 
 } //!Cryptosystem

@@ -79,10 +79,5 @@ namespace Cryptosystem {
         // MQSystem.modifiers.push_back("xor");
     }
 
-    std::shared_ptr<XorModifier> XorModifier::GetSharedPtr()
-    {
-        return shared_from_this();
-    }
-
 } //!Cryptosystem
 } //!FEI

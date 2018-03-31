@@ -1,0 +1,4 @@
+﻿  MQCryptoSystem.cpp
+d:\pt projects\mqcryptotool\mqcryptotool\sourcefiles\mqcryptosystem.cpp(30): warning C4018: '<': signed/unsigned mismatch
+  MQCryptoTool.vcxproj -> D:\pt projects\MQCryptoTool\Debug\MQCryptoTool.exe
+  MQCryptoTool.vcxproj -> D:\pt projects\MQCryptoTool\Debug\MQCryptoTool.pdb (Full PDB)

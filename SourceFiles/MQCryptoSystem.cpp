@@ -1,4 +1,4 @@
-#include "../Headers/MQCryptosystem.h"
+#include "../Headers/MQCryptoSystem.h"
 #include "../Headers/Utilities.h"
 
 #include <fstream>

@@ -51,18 +51,18 @@ int main(int argc, char** argv)
     
     if (strings[2] == "plus")
     {
-        std::shared_ptr<FEI::Cryptosystem::PlusModifier> modifier = std::make_shared<FEI::Cryptosystem::PlusModifier>(stoi(strings[3]));
-        modifier->Modify(mq);
+        FEI::Cryptosystem::PlusModifier modifier(std::stoi(strings[3]));
+        modifier.Modify(mq);
     } 
     if (strings[2] == "minus")
     {
-        std::shared_ptr<FEI::Cryptosystem::MinusModifier> modifier = std::make_shared<FEI::Cryptosystem::MinusModifier>(stoi(strings[3]));
-        modifier->Modify(mq);
+        FEI::Cryptosystem::MinusModifier modifier(std::stoi(strings[3]));
+        modifier.Modify(mq);
     } 
     if (strings[2] == "xor")
     {
-        std::shared_ptr<FEI::Cryptosystem::XorModifier> modifier = std::make_shared<FEI::Cryptosystem::XorModifier>(stoi(strings[3]));
-        modifier->Modify(mq);
+        FEI::Cryptosystem::XorModifier modifier(std::stoi(strings[3]));
+        modifier.Modify(mq);
     }
 
     if (argc == 5)

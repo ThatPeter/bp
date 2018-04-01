@@ -28,7 +28,7 @@ namespace std {
 }
 
 namespace FEI {
-namespace Utilities {
+namespace Modules {
     
     int UtilityModule::RandomIntGenerator(std::pair<int, int> range)
     {
@@ -61,7 +61,6 @@ namespace Utilities {
     std::vector<int> UtilityModule::RandomQuadraticTermGenerator(std::map<std::string, std::vector<int>> linear_combinations)
     {
         std::vector<int> quadraticTerm;
-
         for (auto it = linear_combinations.begin(); it != linear_combinations.end(); it++)
         {
             int condition = RandomIntGenerator(1);

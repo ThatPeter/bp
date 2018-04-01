@@ -1,12 +1,13 @@
 #pragma once
 
+#include "IOService.h"
 #include <string>
 #include "MQCryptoSystem.h"
 
 namespace FEI {
-namespace Cryptosystem {
+namespace CryptoSystem {
 
-    class IModifier
+    class IModifier : public FEI::Modules::IOService
     {
     public:
         virtual std::string GetName() const = 0;

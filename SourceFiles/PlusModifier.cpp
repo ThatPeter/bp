@@ -1,8 +1,10 @@
 #include "../Headers/PlusModifier.h"
 #include "../Headers/Utilities.h"
 
+#include <fstream>
+
 namespace FEI {
-namespace Cryptosystem {
+namespace CryptoSystem {
 
     PlusModifier::PlusModifier(int toAddCount)
         : m_toAddCount(toAddCount)
@@ -22,38 +24,79 @@ namespace Cryptosystem {
 
     void PlusModifier::Modify(MQCryptoSystem& mq)
     {
-        /*if(eq_to_add < 1)
-        {
-            throw std::runtime_error("Plus modifier failed: the number of equations to add is too low!");
-            return;
-        }*/
-
         //appending new equations to the system
-        std::vector<std::vector<int>> newEquations;
-        size_t originalEquationsCount = mq.m_equationsCount;
+        size_t originalEquationsCount = mq.m_polynomialsCount;
         for (size_t i = 0; i < m_toAddCount; i++)
         {
-            std::vector<int> eq = FEI::Utilities::UtilityModule::RandomVectorGenerator((mq.m_variablesCount * (mq.m_variablesCount + 1)) / 2 + mq.m_variablesCount + 1);
-            newEquations.push_back(eq);
-            mq.m_equations.push_back(eq);
+            std::vector<int> eq = FEI::Modules::UtilityModule::RandomVectorGenerator((mq.m_variablesCount * (mq.m_variablesCount + 1)) / 2 + mq.m_variablesCount + 1);
+            m_newPolynomials.push_back(eq);
+            mq.m_polynomials.push_back(eq);
         }
 
-        mq.m_equationsCount = mq.m_equations.size();
+        mq.m_polynomialsCount = mq.m_polynomials.size();
 
-        // adding the equations to the old ones
+        for (size_t i = 0; i < originalEquationsCount; i++)
         {
-            for (size_t i = 0; i < originalEquationsCount; i++)
+            m_constants.push_back(std::vector<int>());
+            for (auto& vec : m_newPolynomials)
             {
-                for (auto& vec : newEquations)
+                int constant = FEI::Modules::UtilityModule::RandomIntGenerator(1);
+                m_constants[i].push_back(constant);
+                if (constant)
                 {
-                    int constant = FEI::Utilities::UtilityModule::RandomIntGenerator(1);
-                    if (constant)
-                    {
-                        mq.m_equations[i] = mq.m_equations[i] + vec;
-                    }
+                    mq.m_polynomials[i] = mq.m_polynomials[i] + vec;
                 }
             }
         }
+    }
+
+    void PlusModifier::Save(std::string pathname)
+    {
+        std::ofstream file(pathname);
+
+        /* name */
+        file << GetName() << "\n";
+        /* number of linear equations */
+        file << "Number of polynomials added: " << m_toAddCount << "\n";
+
+        /* equations added to the original ones */
+        file << "New polynomials:\n";
+
+        int counter = 0;
+
+        for (auto vector : m_newPolynomials)
+        {
+            file << "[" << counter << "]" << " = [ ";
+            for (auto num : vector)
+            {
+                file << num << " ";
+            }
+            file << "]\n";
+            counter++;
+        }
+
+        /* constants */
+        file << "Constants used:\n";
+
+        counter = 0;
+
+        for (auto vector : m_constants)
+        {
+            file << "[" << counter << "]" << " = [ ";
+            for (auto num : vector)
+            {
+                file << num << " ";
+            }
+            file << "]\n";
+            counter++;
+        }
+
+        file.close();
+    }
+
+    void PlusModifier::Import(std::string pathname)
+    {
+
     }
 
 } //!Cryptosystem

@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\InputManager.h" />
+    <ClInclude Include="Headers\IOService.h" />
     <ClInclude Include="Headers\MinusModifier.h" />
     <ClInclude Include="Headers\Modifier.h" />
     <ClInclude Include="Headers\MQCryptoSystem.h" />
@@ -155,6 +157,7 @@
     <ClInclude Include="Headers\XorModifier.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SourceFiles\InputManager.cpp" />
     <ClCompile Include="SourceFiles\MinusModifier.cpp" />
     <ClCompile Include="SourceFiles\MQCryptoSystem.cpp" />
     <ClCompile Include="SourceFiles\PlusModifier.cpp" />

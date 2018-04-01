@@ -1,13 +1,29 @@
-#include "../Headers/MQCryptoSystem.h"
-#include "../Headers/PlusModifier.h"
-#include "../Headers/MinusModifier.h"
-#include "../Headers/XorModifier.h"
+#include "../Headers/InputManager.h"
 
 #include <iostream>
 #include <string>
 
+//#include <vector>
+
 int main(int argc, char** argv)
 {
+   // int argc = 5;
+   // std::vector<std::string> argv;
+
+   // argv.push_back("");
+    /*-----------------------*/ 
+    //argv.push_back("help");           //uncomment for help test
+    /*-----------------------
+    argv.push_back("random");         //uncomment for random mq creation;
+    argv.push_back("5");              //m
+    argv.push_back("5");              //n
+    argv.push_back("file.txt");       //save - optional
+    -----------------------
+    argv.push_back("file.txt");       //uncomment for modifier application
+    argv.push_back("xore");            //modifier name
+    argv.push_back("2");              //modifier parameter
+    argv.push_back("xor.txt");        //save - optional
+    -----------------------*/
     if (argc == 2)
     {
 	    std::string input(argv[1]);
@@ -26,100 +42,25 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    std::vector<std::string> strings;
-    for(int i = 0; i < argc; i++) 
+    std::vector<std::string> input;
+    for (int i = 0; i < argc; i++)
     {
-	    strings.push_back(argv[i]);
+        input.push_back(argv[i]);
     }
 
-    if (strings[1] == "random")
+    FEI::Modules::InputManager im;
+    try
     {
-        FEI::Cryptosystem::MQCryptoSystem mq(std::stoi(strings[2]), std::stoi(strings[3]));
-        if (argc == 5)
-        {
-            mq.Save(strings[4]);
-        }
-        else
-        {
-            mq.Save();
-        }
-        return 0;
-    }
-
-    FEI::Cryptosystem::MQCryptoSystem mq;
-    mq.Import(strings[1]);
-    
-    if (strings[2] == "plus")
-    {
-        FEI::Cryptosystem::PlusModifier modifier(std::stoi(strings[3]));
-        modifier.Modify(mq);
-    } 
-    if (strings[2] == "minus")
-    {
-        FEI::Cryptosystem::MinusModifier modifier(std::stoi(strings[3]));
-        modifier.Modify(mq);
-    } 
-    if (strings[2] == "xor")
-    {
-        FEI::Cryptosystem::XorModifier modifier(std::stoi(strings[3]));
-        modifier.Modify(mq);
-    }
-
-    if (argc == 5)
-    {
-        mq.Save(strings[4]);
-    }
-    else
-    {
-        mq.Save();
-    }
-
-
-
-    /*
-    for(auto s : strings)
-        std::cout << s << "\n"; */
-
-/*
-    std::string pathToFile(argv[1]);
-    std::string modifier(argv[2]);
-    std::string parameter(argv[3]);
-    std::string pathToSave = "";
-
-    if(argc == 4) 
-    {
-        pathToSave = std::string(argv[4]);
-    }
-
-    std::cout << pathToFile << std::endl;
-    std::cout << modifier << std::endl;
-    std::cout << parameter << std::endl;
-    std::cout << pathToSave << std::endl; */
-
-    //pri minus modifikatore - pocet rovnic na odobranie
-    //pri plus modifikatore - pocet rovnic na pridanie
-    //pri xor modifikatore - pocet linearnych rovnic na skombinovanie
-    //pri HFE --------------------------------------- ????????????
-
-
-    /*
-    try 
-    {
-       // mq.Import("ToyExample.txt");
+        im.Manage(input);
     }
     catch (std::runtime_error& e)
     {
-        std::cout << e.what();
+        std::cout << "Runtime error: " << e.what() << "\n";
     }
-    /*
-    std::shared_ptr<FEI::Cryptosystem::PlusModifier> plusmodifier = std::make_shared<FEI::Cryptosystem::PlusModifier>();
-    std::shared_ptr<FEI::Cryptosystem::MinusModifier> minusmodifier = std::make_shared<FEI::Cryptosystem::MinusModifier>();
-    std::shared_ptr<FEI::Cryptosystem::XorModifier> xormodifier = std::make_shared<FEI::Cryptosystem::XorModifier>();
+    catch (std::invalid_argument& e)
+    {
+        std::cout << "Invalid argument: " << e.what() << "\n";
+    }
 
-    mq.Print();
-    xormodifier->Modify(mq);
-    mq.Print();
-    mq.Save("nfyib.txt");
-    */
     return 0;
 }

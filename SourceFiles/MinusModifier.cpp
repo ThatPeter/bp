@@ -1,8 +1,10 @@
 #include "../Headers/MinusModifier.h"
 #include "../Headers/Utilities.h"
 
+#include <fstream>
+
 namespace FEI {
-namespace Cryptosystem {
+namespace CryptoSystem {
 
     MinusModifier::MinusModifier(int toRemoveCount)
         : m_toRemoveCount(toRemoveCount)
@@ -23,17 +25,47 @@ namespace Cryptosystem {
 
     void MinusModifier::Modify(MQCryptoSystem& mq)
     {
-     /*   if (n_eq_to_erase >= mq.m_equationsCount || n_eq_to_erase < 1)
-        {
-            throw std::runtime_error("Minus modifier failed: the number of equations to erase is either too low or too high!");
-        }*/
-
         for (size_t i = 0; i < m_toRemoveCount; i++)
         {
-            mq.m_equations.erase(mq.m_equations.begin() + FEI::Utilities::UtilityModule::RandomIntGenerator(mq.m_equations.size() - 1));
+            int toErase = FEI::Modules::UtilityModule::RandomIntGenerator(mq.m_polynomials.size() - 1);
+            m_removedPolynomials.push_back(*(mq.m_polynomials.begin() + toErase));
+            mq.m_polynomials.erase(mq.m_polynomials.begin() + toErase);
         }
 
-        mq.m_equationsCount -= 3;
+        mq.m_polynomialsCount = mq.m_polynomials.size();
+    }
+
+    void MinusModifier::Save(std::string pathname)
+    {
+        std::ofstream file(pathname);
+
+        /* name */
+        file << GetName() << "\n";
+        /* number of linear equations */
+        file << "Number of polynomials removed: " << m_toRemoveCount << "\n";
+
+        /* equations added to the original ones */
+        file << "Removed polynomials:\n";
+
+        int counter = 0;
+
+        for (auto vector : m_removedPolynomials)
+        {
+            file << "[" << counter << "]" << " = [ ";
+            for (auto num : vector)
+            {
+                file << num << " ";
+            }
+            file << "]\n";
+            counter++;
+        }
+
+        file.close();
+    }
+
+    void MinusModifier::Import(std::string pathname)
+    {
+
     }
 
 } //!Cryptosystem

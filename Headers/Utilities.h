@@ -9,7 +9,7 @@ namespace std {
 }
 
 namespace FEI {
-namespace Utilities {
+namespace Modules {
 
     class UtilityModule
     {

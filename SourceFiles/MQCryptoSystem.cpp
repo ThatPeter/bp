@@ -7,21 +7,21 @@
 #include <regex>
 
 namespace FEI {
-namespace Cryptosystem {
+namespace CryptoSystem {
 
-    MQCryptoSystem::MQCryptoSystem(std::string galoisField, PublicKey equations, std::string order, int seed, int variablesCount, int equationsCount)
+    MQCryptoSystem::MQCryptoSystem(std::string galoisField, PublicKey equations, std::string order, int seed, int variablesCount, int polynomialsCount)
         : m_galoisField(galoisField)
-        , m_equations(equations)
+        , m_polynomials(equations)
         , m_order(order)
         , m_seed(seed)
-        , m_equationsCount(equationsCount)
+        , m_polynomialsCount(polynomialsCount)
         , m_variablesCount(variablesCount)
     {
 
     }
 
     MQCryptoSystem::MQCryptoSystem(int equations, int variables)
-        : m_equationsCount(equations)
+        : m_polynomialsCount(equations)
         , m_variablesCount(variables)
         , m_order("Order : graded reverse lex order")
         , m_seed(0)
@@ -29,7 +29,7 @@ namespace Cryptosystem {
     {
         for (size_t i = 0; i < equations; i++)
         {
-            m_equations.push_back(FEI::Utilities::UtilityModule::RandomVectorGenerator((variables * (variables + 1) / 2) + variables + 1));
+            m_polynomials.push_back(FEI::Modules::UtilityModule::RandomVectorGenerator((variables * (variables + 1) / 2) + variables + 1));
         }
     }
 
@@ -43,30 +43,33 @@ namespace Cryptosystem {
 
     }
 
-    void MQCryptoSystem::Save(std::string pathname) const
+    void MQCryptoSystem::Save(std::string pathname)
     {
         std::ofstream file(pathname);
 
         file << m_galoisField << "\n";
         file << "Number of variables (n) : " << m_variablesCount << "\n";
-        file << "Number of polynomials (m) : " << m_equationsCount << "\n";
+        file << "Number of polynomials (m) : " << m_polynomialsCount << "\n";
         file << "Seed : " << m_seed << "\n";
         file << m_order << "\n";
         file << "\n*********************\n";
 
         int counter = 0;
-        for (auto vector : m_equations)
+        for (auto vector : m_polynomials)
         {
             for (auto num : vector)
             {
                 file << num << " ";
             }
             file << ";";
-            if (counter != m_equations.size() - 1)
+            if (counter < m_polynomials.size() - 1)
             {
                 file << std::endl;
             }
+            counter++;
         }
+
+        file.close();
     }
 
     void MQCryptoSystem::Import(std::string pathname)
@@ -86,7 +89,7 @@ namespace Cryptosystem {
         m_variablesCount = std::stoi(std::regex_replace(line, std::regex(R"([\D])"), ""));
         
         std::getline(inputFile, line);          //m
-        m_equationsCount = std::stoi(std::regex_replace(line, std::regex(R"([\D])"), ""));
+        m_polynomialsCount = std::stoi(std::regex_replace(line, std::regex(R"([\D])"), ""));
 
         std::getline(inputFile, line);          //seed
         m_seed = std::stoi(std::regex_replace(line, std::regex(R"([\D])"), ""));
@@ -102,16 +105,18 @@ namespace Cryptosystem {
                                                 
         while (std::getline(inputFile, line))   //equations
         {
-            m_equations.push_back(std::vector<int>());
+            m_polynomials.push_back(std::vector<int>());
             std::stringstream stream(line);
 
             int n;
             while (stream >> n)
             {
-                m_equations[counter].push_back(n);
+                m_polynomials[counter].push_back(n);
             }
             counter++;
         }
+
+        inputFile.close();
     }
 
 
@@ -119,12 +124,12 @@ namespace Cryptosystem {
     {
         std::cout << m_galoisField << "\n";
         std::cout << "Number of variables (n) : " << m_variablesCount << "\n";
-        std::cout << "Number of polynomials (m) : " << m_equationsCount << "\n";
+        std::cout << "Number of polynomials (m) : " << m_polynomialsCount << "\n";
         std::cout << "Seed : " << m_seed << "\n";
         std::cout << m_order << "\n";
         std::cout << "\n*********************\n";
 
-        for (auto vector : m_equations)
+        for (auto vector : m_polynomials)
         {
             for (auto num : vector)
             {

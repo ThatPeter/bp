@@ -2,50 +2,64 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 
-//#include <vector>
+#include <vector>
 
 int main(int argc, char** argv)
 {
-   // int argc = 5;
-   // std::vector<std::string> argv;
+    //-------------------------------------------
+  /*  int argc;
+    std::vector<std::string> argv;
 
-   // argv.push_back("");
-    /*-----------------------*/ 
-    //argv.push_back("help");           //uncomment for help test
-    /*-----------------------
-    argv.push_back("random");         //uncomment for random mq creation;
-    argv.push_back("5");              //m
-    argv.push_back("5");              //n
-    argv.push_back("file.txt");       //save - optional
-    -----------------------
-    argv.push_back("file.txt");       //uncomment for modifier application
-    argv.push_back("xore");            //modifier name
-    argv.push_back("2");              //modifier parameter
-    argv.push_back("xor.txt");        //save - optional
-    -----------------------*/
-    if (argc == 2)
+    argv.push_back("exefile name");
+        argv.push_back("-h"); */
+   /* argv.push_back("-r");
+    
+    argv.push_back("-v");
+    argv.push_back("10");
+
+    argv.push_back("-e");
+    argv.push_back("10");
+
+    argv.push_back("-s");           THIS BLOCK IS PRESENT FOR TESTING PURPOSES ONLY AND WILL BE REMOVED 
+    argv.push_back("rand");*///     IMMEDIATELY UPON A FINAL RELEASE VERSION       
+    /*
+    argv.push_back("-f");
+    argv.push_back("rand");
+
+    argv.push_back("-m");
+    argv.push_back("plus");
+
+    argv.push_back("-p");
+    argv.push_back("1");
+
+    argv.push_back("-s");
+    argv.push_back("r"); 
+
+    argc = argv.size();
+    */
+    //----------------------------------------------
+    std::map<std::string, std::string> input;
+    for (int i = 1; i < argc; i++)
     {
-	    std::string input(argv[1]);
-
-	    if (input == "help")
-	    {
-	        std::cout << "Usage: ./Name [path to file] [modifier name] [modifier parameter] [(optional) path to save the file to (default = \"mq\")]\n";
-            std::cout << "or ./Name random [number of polynomials] [number of variables] [(optional) path to save the file to (default = \"mq\")] to generate an MQ cryptosystem with random equations\n";
-            return 0;
-	    }
-    }
-
-    if (argc < 4 || argc > 5)
-    {
-        std::cout << "Incorrect usage. In case of need, please use \"help\"!\n";
-        return 1;
-    }
-
-    std::vector<std::string> input;
-    for (int i = 0; i < argc; i++)
-    {
-        input.push_back(argv[i]);
+        if (argv[i] == "-r" || argv[i] == "-h")
+        {
+            input[argv[i]] = "";
+        }
+        else 
+        {
+            if (i + 1 < argc)
+            {
+                input[argv[i]] = argv[i + 1];
+                i++;
+            }
+            else
+            {
+                std::cout << "Invalid usage. Use -h for help.\n";
+                return 1;
+            }
+        }
     }
 
     FEI::Modules::InputManager im;

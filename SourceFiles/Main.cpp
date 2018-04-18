@@ -9,7 +9,7 @@
 int main(int argc, char** argv)
 {
     //-------------------------------------------
-  /*  int argc;
+ /*   int argc;
     std::vector<std::string> argv;
 
     argv.push_back("exefile name");
@@ -43,15 +43,15 @@ int main(int argc, char** argv)
     std::map<std::string, std::string> input;
     for (int i = 1; i < argc; i++)
     {
-        if (argv[i] == "-r" || argv[i] == "-h")
+        if (std::string(argv[i]) == "-r" || std::string(argv[i]) == "-h")
         {
-            input[argv[i]] = "";
+            input[std::string(argv[i])] = "";
         }
         else 
         {
             if (i + 1 < argc)
             {
-                input[argv[i]] = argv[i + 1];
+                input[std::string(argv[i])] = std::string(argv[i + 1]);
                 i++;
             }
             else

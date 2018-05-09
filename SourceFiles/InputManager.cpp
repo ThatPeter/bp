@@ -35,7 +35,7 @@ namespace Modules {
 
         std::map<std::string, std::string>::const_iterator inputEnd = input.end();
 
-        if (input.find("-h") != inputEnd)
+        if (input.find("-h") != inputEnd || input.find("--help") != inputEnd)
         {
             if (input.size() == 1)
             {
@@ -170,7 +170,7 @@ namespace Modules {
             modifier.Save();
         }
 
-        if (input.at("-m") == "xor")
+        if (input.at("-m") == "xor" || input.at("-m") == "i")
         {
             int linearEquations = std::stoi(input.at("-p"));
 
